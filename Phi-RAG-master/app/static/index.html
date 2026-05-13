@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mira</title>
+  <link rel="stylesheet" href="/static/css/main.css?v=20260508e" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar-header sidebar-header-rel">
+      <div class="sidebar-logo">Mira</div>
+      <div class="sidebar-tagline">phi4-mini · nomic-embed-text</div>
+      <button id="darkToggleBtn" class="dark-toggle-btn" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+    </div>
+
+    <button id="newChatBtn" class="new-chat-btn">+ New Chat</button>
+
+    <div class="sessions-heading">Chats</div>
+    <div class="sessions-list" id="sessionsList">
+      <div class="sessions-empty">No chats yet.</div>
+    </div>
+
+    <div class="sidebar-footer">
+      <button id="clearHistoryBtn" class="footer-btn" aria-label="Clear all chat history">🗑 Clear</button>
+      <button id="refreshBtn" class="footer-btn" aria-label="Refresh chat list">↺ Refresh</button>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- ── MAIN CHAT AREA ── -->
+  <main class="main">
+    <div class="main-header">
+      <div class="main-header-left">
+        <button id="sidebarToggle" class="sidebar-toggle" title="Toggle chats">☰</button>
+        <div class="main-title" id="mainTitle">New Chat</div>
+      </div>
+      <div class="main-header-right">
+        <div class="models-btn-wrap" id="modelsBtnWrap">
+          <span class="shortcut-tip">⌘K to switch models</span>
+          <button id="modelsBtn" class="models-btn" aria-haspopup="menu" aria-expanded="false" title="Switch model (⌘K)">
+            <span class="models-btn-label" id="modelsBtnLabel">Loading…</span>
+            <span class="models-btn-arrow">▾</span>
+          </button>
+          <div class="model-panel" id="modelPanel" role="menu"></div>
+        </div>
+        <div class="main-meta" id="mainMeta"></div>
+      </div>
+    </div>
+
+    <div class="chat-thread" id="chatThread">
+      <div class="chat-empty">
+        <div class="empty-illustration">✦</div>
+        <div class="chat-empty-title">Start a conversation</div>
+        <div class="chat-empty-hint">Drop in a document, choose your provider and model, then ask anything about your content.</div>
+      </div>
+    </div>
+
+    <input id="docFile" class="visually-hidden-file" type="file" accept=".pdf,.docx,.txt,.md" aria-hidden="true" />
+
+    <div class="input-bar">
+      <div id="attachmentTray" class="attachment-tray"></div>
+      <div id="uploadStatusBar" class="upload-status upload-status-compact"></div>
+      <div id="inlineError" class="inline-error"></div>
+      <div class="composer-main">
+        <div class="composer-input-wrap">
+          <button id="paperclipBtn" class="paperclip-btn" title="Attach document (PDF, DOCX, TXT, MD)" aria-label="Attach document">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
+          </button>
+          <label class="sr-only" for="question">Ask a question</label>
+          <textarea id="question" class="input-textarea" rows="1" placeholder="Ask a question… (Enter to send, Shift+Enter for newline)"></textarea>
+        </div>
+        <button id="askBtn" class="ask-btn">Ask</button>
+      </div>
+    </div>
+    <div class="composer-footnote">
+      <span>Tip: attach one or more documents, then ask focused questions for better answers.</span>
+      <span id="composerMeta" class="composer-meta">Provider: Local · Model: Loading…</span>
+    </div>
+
+  </main>
+
+  <!-- ── API KEY MODAL ── (outside main for correct a11y tree) -->
+  <div class="modal-overlay" id="apiKeyModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <div class="modal-title" id="modalTitle">Enter API Key</div>
+      <div class="modal-subtitle" id="modalSubtitle">Your key is never stored — it is only used for this session.</div>
+      <input type="password" class="modal-input" id="modalApiKeyInput" placeholder="Paste your API key here…" autocomplete="off" />
+      <div class="modal-error" id="modalError"></div>
+      <div class="modal-actions">
+        <button class="modal-cancel-btn" id="modalCancelBtn">Cancel</button>
+        <button class="modal-submit-btn" id="modalSubmitBtn">Validate &amp; Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/markdown.js?v=20260508e"></script>
+  <script src="/static/js/app.js?v=20260508e"></script>
+</body>
+</html>
